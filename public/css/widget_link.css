@@ -1,0 +1,105 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.widget-container {
+  width: 18rem; /* Initial width of the widget. */
+  position: fixed; /* This will make the widget stay in its position even on scroll. */
+  top: 20px; /* Space from the top */
+  right: 20px; /* Space from the right */
+}
+
+.card-title-section h5 {
+  margin: 0;
+}
+
+.card-description-section {
+  flex: 1;
+}
+
+.card-description-section p {
+  margin: 0;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  bottom: auto;
+  transform: translateY(-50%);
+  background: none;
+  z-index: 2;
+}
+
+.carousel-control-prev {
+  left: -18px; /* Adjust this value to place the arrow as desired */
+}
+
+.carousel-control-next {
+  right: -18px; /* Adjust this value to place the arrow as desired */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  display: none; /* Hide default Bootstrap icons */
+}
+
+.carousel-control-prev i,
+.carousel-control-next i {
+  color: #41b6e6;
+}
+.carousel-item {
+  padding-left: 15px; /* Adjust as needed */
+  padding-right: 15px; /* Adjust as needed */
+}
+.card-body {
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto; /* Allows horizontal scrolling if cards overflow */
+}
+.container {
+  max-width: 10%;
+  padding-right: 160px;
+  padding-left: 160px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.d-flex.flex-wrap {
+  display: flex;
+  flex-wrap: nowrap; /* Prevents the cards from wrapping */
+}
+
+.card {
+  flex: 0 0 250px; /* Sets the flex-basis to 250px and prevents the cards from growing or shrinking */
+  margin: 20px; /* Adjust margin as needed */
+}
+
+/* If the cards still wrap, you can adjust the flex-basis of the card container */
+.mb-4.ml-3 {
+  flex: 1 0 auto; /* Change the flex-basis as needed */
+}
+/* Adjust the container's max-width for different screen sizes */
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1140px; /* Bootstrap's default large container size */
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .container {
+    max-width: 800px; /* Bootstrap's default medium container size */
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: 100%; /* The container takes full width on small screens */
+    padding: 0; /* Removes padding if necessary */
+  }
+
+  .card {
+    flex: 0 0 50%; /* Adjust this value so that two cards can fit side by side on the smallest screen size you support */
+  }
+}

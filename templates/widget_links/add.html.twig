@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add a new Widget Link{% endblock %}
+
+{% block body %}
+    <h1>Add a new Widget Link</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Save</button>
+    {{ form_end(form) }}
+{% endblock %}

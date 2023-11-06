@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Widget Display
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+    <div class="card" style="background-color: #f8f6fa;">
+        <div class="card-header" style="background-color: #eff3fa;">
+            Shortcuts
+        </div>
+        <div class="card-body">
+
+            <!-- Carousel starts here -->
+            <div id="widgetCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+
+                    <!-- Loop through widgets in pairs and display -->
+                    {% for i in 0..(widgets|length - 1)//2 %}
+                        <div class="carousel-item {% if i == 0 %}active{% endif %}">
+                            <div class="d-flex flex-wrap">
+                                {% set widget = widgets[i*2] %}
+                                {% include 'widget_links/widget_card.twig' %} 
+                                {% if i*2 + 1 < widgets|length %}
+                                    {% set widget = widgets[i*2 + 1] %}
+                                    {% include 'widget_links/widget_card.twig' %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+             <a class="carousel-control-prev" href="#widgetCarousel" role="button" data-slide="prev">
+    <i class="fas fa-chevron-left fa-2x"></i>
+    <span class="sr-only">Previous</span>
+</a>
+<a class="carousel-control-next" href="#widgetCarousel" role="button" data-slide="next">
+    <i class="fas fa-chevron-right fa-2x"></i>
+    <span class="sr-only">Next</span>
+</a>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
