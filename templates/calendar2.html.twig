@@ -1,0 +1,42 @@
+{# templates/calendar.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/simple-calendar.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="container"><!-- Calendar will be loaded here --></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ asset('js/jquery.simple-calendar.js') }}"></script>
+    <script>
+        $(function(){
+            // Fetch events from the server
+            $.getJSON('/api/events', function(data) {
+                var events = data.events.map(function(event) {
+                    return {
+                        startDate: new Date(event.start_time),
+                        endDate: new Date(event.end_time),
+                        summary: event.name
+                        // Add more event properties if needed
+                    };
+                });
+
+                // Initialize the calendar with the events
+                $("#container").simpleCalendar({
+                    displayEvent: true,
+                    // Pass the events array to the calendar
+                    events: events,
+                    // Add other options as needed
+                });
+            });
+        });
+    </script>
+{% endblock %}

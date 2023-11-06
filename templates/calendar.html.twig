@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/simple-calendar.css') }}">
+    <style>
+       
+       #calendar-widget-container {
+    width: 100%;
+    max-width: 480px; 
+    margin: auto; 
+    background-color: #f9f6fa; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    border: 1px solid #cccccc; 
+}
+
+
+#calendar-title-box {
+    padding: 4px;
+    margin-top:2px;
+    margin-left:3px;
+    background-color: #f0f4f9; 
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px; 
+    
+}
+
+#calendar-box {
+    padding: 20px;
+    border: 1px solid #cccccc;
+}
+.event {
+  cursor: pointer; 
+}
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="calendar-widget-container">
+        <div id="calendar-title-box">
+            <h3>My Calendar</h3>
+        </div>
+        <div id="calendar-box">
+            <div id="container"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ asset('js/jquery.simple-calendar.js') }}"></script>
+    <script>
+        $(function(){
+            // Fetch events from the server
+            $.getJSON('/api/events', function(data) {
+                var events = data.events.map(function(event) {
+                    return {
+                        startDate: new Date(event.start_time),
+                        endDate: new Date(event.end_time),
+                        summary: event.name,
+                        intakeId: event.intake.id
+                    };
+                });
+
+                // Initialize the calendar with the events
+                $("#container").simpleCalendar({
+                    displayEvent: true,
+                    // Pass the events array to the calendar
+                    events: events,
+                });
+
+               // Handle click on event
+                $('#container').on('click', '.event', function() {
+                    // Get the event data
+                    var intakeId = $(this).data('event').intakeId;
+                    if (intakeId) {
+                        window.location.href = `/calendar/intake/${intakeId}`;
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

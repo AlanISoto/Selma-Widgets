@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block stylesheets %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/evo-calendar.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/evo-calendar.midnight-blue.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/calendar.css') }}"/>
+{% endblock %}
+
+{% block body %}
+  <div id="calendar"></div>
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="{{ asset('js/evo-calendar.js') }}"></script>
+<script>
+$(document).ready(function() {
+  console.log('Document is ready');  
+  // Make an API call to get the events
+  $.ajax({
+    url: '/api/events',
+    type: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      console.log('API call succeeded');  
+      
+      // Format the events to match the EvoCalendar format
+      const events = response.events.map(function(event) {
+  return {
+    id: String(event.id),
+    name: String(event.name),
+    date: moment(event.start_time).format('MM/DD/YYYY'),
+    type: "holiday",
+    color: event.color,
+    description: `Intake: ${event.intake.name}`,
+    intakeId: event.intake.id 
+  };
+});
+
+      console.log("Final formatted events:", events);
+
+    // Initialize the calendar
+    $('#calendar').evoCalendar({
+    todayHighlight: true
+  });
+
+  // Add the events to the calendar
+  $('#calendar').evoCalendar('addCalendarEvent', events);
+
+  // Listen for when an event is selected
+  $('#calendar').on('selectEvent', function(event, activeEvent) {
+  console.log("Event selected:", activeEvent);
+  // Navigate to a page specific to the intake's ID
+  window.location.href = `/calendar/intake/${activeEvent.intakeId}`;
+});
+
+    },
+    error: function(error) {
+      console.log('API call failed');  
+      console.log(error);
+    }
+  });
+});
+</script>
+{% endblock %}
