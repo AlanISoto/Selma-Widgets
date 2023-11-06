@@ -14,11 +14,8 @@
         </div>
         <div class="card-body">
 
-            <!-- Carousel starts here -->
             <div id="widgetCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-
-                    <!-- Loop through widgets in pairs and display -->
                     {% for i in 0..(widgets|length - 1)//2 %}
                         <div class="carousel-item {% if i == 0 %}active{% endif %}">
                             <div class="d-flex flex-wrap">

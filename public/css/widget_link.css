@@ -59,7 +59,6 @@ body {
   overflow-x: auto; /* Allows horizontal scrolling if cards overflow */
 }
 .container {
-  max-width: 10%;
   padding-right: 160px;
   padding-left: 160px;
   margin-right: auto;

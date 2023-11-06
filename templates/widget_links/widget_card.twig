@@ -1,13 +1,13 @@
-<div class="mb-4 ml-3" style="flex: 1 0 20%;">
+<div class="mb-4 ml-4" style="box-shadow: 0 4px 16px rgba(0,0,0,0.15);">
     <div class="card" style="width: 18rem;">
         <img src="{{ asset(widget.imagePath) }}" class="card-img-top" alt="{{ widget.title }}" style="max-height: 200px; object-fit: cover;">
-
-        <!-- Title section with added border-top -->
+        
+   
         <div class="card-title-section" style="background-color: #eff3fa; padding: 15px; border-top: 1px solid #41B6E6;">
             <h5 class="card-title text-center" style="color: black;">{{ widget.title }}</h5>
         </div>
 
-        <!-- Description and button section -->
+     
         <div class="card-description-section d-flex flex-column align-items-center text-dark" style="background-color: #41B6E6; color: white; padding: 15px;">
             <p class="card-text mb-3 flex-grow-1">{{ widget.description }}</p>
             <a href="{{ widget.link }}" class="btn rounded-pill" style="background-color: #332F21; color: white;">Go</a>
